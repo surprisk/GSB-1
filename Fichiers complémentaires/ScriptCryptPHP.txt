@@ -1,0 +1,8 @@
+public function passwdCryptAll(){
+	$req = PdoGsb::$monPdo -> query('SELECT * FROM utilisateur');
+	while($donnees = $req->fetch()){
+		$passwd = $donnees['mdp'];
+		$npasswd = hash("sha512" , "$passwd");
+		PdoGsb::$monPdo -> query("UPDATE utilisateur SET mdp='$npasswd' WHERE id='".$donnees['id']."'");
+	}
+}
